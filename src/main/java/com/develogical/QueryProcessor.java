@@ -31,8 +31,8 @@ public class QueryProcessor {
         }
 
         if (query.toLowerCase().contains("which of the following numbers is the largest:")) {
-            String firstNumber = query.substring(query.indexOf("and")-3, query.indexOf("and")-1);
-            String secondNumber = query.substring(query.length()-2);
+            String firstNumber = query.substring(query.indexOf(":")+1, query.indexOf("and")-1);
+            String secondNumber = query.substring(query.indexOf("and")+3);
             secondNumber = removeEmptySpace(secondNumber);
             firstNumber = removeEmptySpace(firstNumber);
             Integer intSecondNumber = Integer.parseInt(secondNumber);
@@ -40,9 +40,8 @@ public class QueryProcessor {
             Integer max = max(intFirstNumber, intSecondNumber);
             return String.valueOf(max);
         }
-            return "";
+        return "";
     }
-
 
 
     private String removeEmptySpace(String secondNumber) {
