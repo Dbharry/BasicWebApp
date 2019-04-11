@@ -79,7 +79,7 @@ public class QueryProcessor {
             }
             for (Integer i = 0; i < strings.size(); i++) {
                 float squareRoot = (float) Math.pow(Double.parseDouble(strings.get(i)), 0.5);
-                float cubeRoot = (float) Math.pow(Double.parseDouble(strings.get(i)), (1/3));
+                float cubeRoot = (float) Math.pow(Double.parseDouble(strings.get(i)), (1 / 3));
                 if (squareRoot == (int) squareRoot && cubeRoot == (int) cubeRoot) {
                     cubeSquareNumber = strings.get(i);
                 }
@@ -87,6 +87,9 @@ public class QueryProcessor {
             return cubeSquareNumber;
         }
 
+        if (query.toLowerCase().contains("which year was theresa may first elected as the prime minister of great britain")) {
+            return "2016";
+        }
 
 
         return "";
