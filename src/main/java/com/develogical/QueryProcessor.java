@@ -55,24 +55,46 @@ public class QueryProcessor {
                 }
             }*/
             LinkedList<String> strings = new LinkedList<String>();
-           List<Integer> numbers = new ArrayList<>();
+            List<Integer> numbers = new ArrayList<>();
             Pattern p = Pattern.compile("\\d+");
             Matcher m = p.matcher(query);
             while (m.find()) {
                 strings.add(m.group());
             }
-            for(Integer i=0 ; i < strings.size() ; i++) {
+            for (Integer i = 0; i < strings.size(); i++) {
                 numbers.add(Integer.parseInt(strings.get(i)));
             }
             return String.valueOf(Collections.max(numbers));
         }
+
+        if (query.toLowerCase().contains("which of the following numbers is both a square and a cube:") && query.toLowerCase().contains(",")) {
+
+            LinkedList<String> strings = new LinkedList<String>();
+            List<Integer> numbers = new ArrayList<>();
+            Pattern p = Pattern.compile("\\d+");
+            String cubeSquareNumber = "";
+            Matcher m = p.matcher(query);
+            while (m.find()) {
+                strings.add(m.group());
+            }
+            for (Integer i = 0; i < strings.size(); i++) {
+                float squareRoot = (float) Math.pow(Double.parseDouble(strings.get(i)), 0.5);
+                float cubeRoot = (float) Math.pow(Double.parseDouble(strings.get(i)), (1/3));
+                if (squareRoot == (int) squareRoot && cubeRoot == (int) cubeRoot) {
+                    cubeSquareNumber = strings.get(i);
+                }
+            }
+            return cubeSquareNumber;
+        }
+
+
 
         return "";
     }
 
 
     private String removeEmptySpace(String secondNumber) {
-        if(secondNumber.indexOf(" ") == 0) {
+        if (secondNumber.indexOf(" ") == 0) {
             secondNumber = secondNumber.substring(1);
         }
         return secondNumber;
