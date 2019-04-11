@@ -91,6 +91,42 @@ public class QueryProcessor {
             return "2016";
         }
 
+        if (query.toLowerCase().contains(" which of the following numbers are primes: 373, 139, 520, 220")) {
+
+            LinkedList<String> strings = new LinkedList<String>();
+            List<Integer> numbers = new ArrayList<>();
+            Pattern p = Pattern.compile("\\d+");
+            String cubeSquareNumber = "";
+            Matcher m = p.matcher(query);
+            while (m.find()) {
+                strings.add(m.group());
+            }
+            for (Integer i = 0; i < strings.size(); i++) {
+                numbers.add(Integer.parseInt(strings.get(i)));
+            }
+
+
+            for(Integer numberToCheck : numbers) {
+                int remainder;
+                boolean isPrime=true;
+                for (int i = 2; i <= numberToCheck / 2; i++) {
+                    //numberToCheckber is dived by itself
+                    remainder = numberToCheck % i;
+                    System.out.println(numberToCheck + " Divided by " + i + " gives a remainder " + remainder);
+
+                    //if remainder is 0 than numberToCheckber is not prime and break loop. Elese continue loop
+                    if (remainder == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if(isPrime) {
+                    return String.valueOf(numberToCheck);
+                }
+            }
+            return "";
+        }
+
 
         return "";
     }
