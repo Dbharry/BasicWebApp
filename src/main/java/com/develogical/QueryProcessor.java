@@ -1,5 +1,9 @@
 package com.develogical;
 
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.lang.Integer.max;
 
 public class QueryProcessor {
@@ -16,8 +20,8 @@ public class QueryProcessor {
         }
 
         if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("plus")) {
-            String secondNumber = query.substring(query.length()-2);
-            String firstNumber = query.substring(query.indexOf("p")-3, query.indexOf("p")-1);
+            String secondNumber = query.substring(query.length() - 2);
+            String firstNumber = query.substring(query.indexOf("p") - 3, query.indexOf("p") - 1);
 
             secondNumber = removeEmptySpace(secondNumber);
             firstNumber = removeEmptySpace(firstNumber);
@@ -25,14 +29,14 @@ public class QueryProcessor {
             Integer intSecondNumber = Integer.parseInt(secondNumber);
             Integer intFirstNumber = Integer.parseInt(firstNumber);
 
-            Integer sum =  intFirstNumber + intSecondNumber ;
+            Integer sum = intFirstNumber + intSecondNumber;
 
             return String.valueOf(sum);
         }
 
-        if (query.toLowerCase().contains("which of the following numbers is the largest:")) {
-            String firstNumber = query.substring(query.indexOf(":")+1, query.indexOf("and")-1);
-            String secondNumber = query.substring(query.indexOf("and")+3);
+        if (query.toLowerCase().contains("which of the following numbers is the largest:") && query.toLowerCase().contains("and")) {
+            String firstNumber = query.substring(query.indexOf(":") + 1, query.indexOf("and") - 1);
+            String secondNumber = query.substring(query.indexOf("and") + 3);
             secondNumber = removeEmptySpace(secondNumber);
             firstNumber = removeEmptySpace(firstNumber);
             Integer intSecondNumber = Integer.parseInt(secondNumber);
@@ -40,6 +44,29 @@ public class QueryProcessor {
             Integer max = max(intFirstNumber, intSecondNumber);
             return String.valueOf(max);
         }
+
+        if (query.toLowerCase().contains("which of the following numbers is the largest:") && query.toLowerCase().contains(",")) {
+            /*String numberList = query.substring(query.indexOf(":") +1);
+            char[] numberListCharArray = numberList.toCharArray();
+            Integer[] numbers;
+            for(Integer i=0 ; i < numberList.length(); i++) {
+                if(numberListCharArray[i] == ',') {
+                    numbers.add;
+                }
+            }*/
+            LinkedList<String> strings = new LinkedList<String>();
+           List<Integer> numbers = new ArrayList<>();
+            Pattern p = Pattern.compile("\\d+");
+            Matcher m = p.matcher(query);
+            while (m.find()) {
+                strings.add(m.group());
+            }
+            for(Integer i=0 ; i < strings.size() ; i++) {
+                numbers.add(Integer.parseInt(strings.get(i)));
+            }
+            return String.valueOf(Collections.max(numbers));
+        }
+
         return "";
     }
 
