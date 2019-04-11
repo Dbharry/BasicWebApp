@@ -1,5 +1,7 @@
 package com.develogical;
 
+import static java.lang.Integer.max;
+
 public class QueryProcessor {
 
     public String process(String query) {
@@ -27,8 +29,21 @@ public class QueryProcessor {
 
             return String.valueOf(sum);
         }
-        return "";
+
+        if (query.toLowerCase().contains("which of the following numbers is the largest:")) {
+            String firstNumber = query.substring(query.indexOf("and")-3, query.indexOf("and")-1);
+            String secondNumber = query.substring(query.length()-2);
+            secondNumber = removeEmptySpace(secondNumber);
+            firstNumber = removeEmptySpace(firstNumber);
+            Integer intSecondNumber = Integer.parseInt(secondNumber);
+            Integer intFirstNumber = Integer.parseInt(firstNumber);
+            Integer max = max(intFirstNumber, intSecondNumber);
+            return String.valueOf(max);
+        }
+            return "";
     }
+
+
 
     private String removeEmptySpace(String secondNumber) {
         if(secondNumber.indexOf(" ") == 0) {
@@ -36,4 +51,6 @@ public class QueryProcessor {
         }
         return secondNumber;
     }
+
+
 }
