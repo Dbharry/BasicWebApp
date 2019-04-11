@@ -12,6 +12,17 @@ public class QueryProcessor {
         if (query.toLowerCase().contains("what is your name")) {
             return "afternoon thicket";
         }
+
+        if (query.toLowerCase().contains("what is 20 plus")) {
+            String number = query.substring(query.length()-2);
+            if(number.indexOf(" ") == 0) {
+                number = number.substring(1);
+            }
+            Integer intNumber = Integer.parseInt(number);
+            Integer sum = 20 + intNumber;
+
+            return String.valueOf(sum);
+        }
         return "";
     }
 }
