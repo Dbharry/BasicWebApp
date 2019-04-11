@@ -5,4 +5,5 @@ script: mvn clean verify
 deploy:
   provider: heroku
   api_key:
-    secure: "e894ce1f-5932-4634-87d5-fd7ad8901c4b"
+    secure: 57a1bf1c-27a4-4408-8adc-c47a97757d5f
+  app: afternoon-thicket-88218
